@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Passenger.h"
+#include "Flight.h"
 
 using namespace std;
 
@@ -11,19 +12,23 @@ class Ticket
 private:
     int id;
     Passenger passenger;
+    Flight flight;
+    int seatNumber;
+    string status;
     
 
 public:
-    // void setName(string name);
-    // void setEmail(string email);
-    // void setPassword(string password);
-    // void setIsLoggedIn(bool isLoggedIn);
-    // void setIsHomePageButtonClicked(bool isHomePageButtonClicked);
-    // string getName();
-    // string getEmail();
-    // string getPassword();
-    // bool getIsLoggedIn();
-    // bool getIsHomePageButtonClicked();
+    void setId();
+    void setId(int id);
+    void setPassenger(Passenger passenger);
+    void setFlight(Flight flight);
+    void setStatus(string status);
+    void setSeatNumber(int seatNumber);
+    int getId();
+    Passenger getPassenger();
+    Flight getFlight();
+    string getStatus();
+    int getSeatNumber();
 };
 
 #endif

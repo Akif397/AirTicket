@@ -75,6 +75,11 @@ public:
 int main()
 {
     FileReadWriteSvc::writeFlightInformation();
+    // cout << FileReadWriteSvc::getLineNo("Ticket.txt");
+    // DisplaySvc::displayFlightDetails();
+
+    // FileReadWriteSvc::getLineNo("Flight.txt");
+
     // Admin admin;
 
     // Airbus air;
@@ -85,35 +90,59 @@ int main()
     // Air a("Biman");
     // a.print();
 
-    // DisplaySvc d;
-    // d.displayHomepage();
+    DisplaySvc::displayHomepage();
 
-    // bool exit = false;
-    // while (exit == false)
-    // {
-    //     int homePageInput;
-    //     bool isLoggedIn = false;
-    //     DisplaySvc::displayHomepage();
+    bool exit = false;
+    while (exit == false)
+    {
+        int homePageInput;
+        bool isLoggedIn = false;
+        DisplaySvc::displayHomepage();
 
-    //     cin >> homePageInput;
-    //     cout << endl;
-    //     if (homePageInput == 1 || homePageInput == 2)
-    //     {
-    //         while (!isLoggedIn)
-    //         {
-    //             Passenger passenger = DisplaySvc::displayLoginpage();
-    //             if (!passenger.getIsLoggedIn())
-    //             {
-    //                 cout << "Credential does not match" << endl;
-    //             }
-    //             isLoggedIn = passenger.getIsLoggedIn();
-    //         }
-    //     }
-    //     else
-    //     {
-    //         cout << "Wrong input" << endl;
-    //     }
-    // }
+        cin >> homePageInput;
+        cout << endl;
+        if (homePageInput == 1 || homePageInput == 2)
+        {
+            Passenger passenger;
+            while (!isLoggedIn)
+            {
+                passenger = DisplaySvc::displayLoginpage();
+
+                if (passenger.getIsHomePageButtonClicked())
+                {
+                    break;
+                }
+                else if (!passenger.getIsLoggedIn())
+                {
+                    cout << "Credential does not match" << endl;
+                }
+                else if (passenger.getIsLoggedIn())
+                {
+                    passenger = DisplaySvc::displayAllFlightDetails(passenger);
+                    if (!passenger.getIsLoggedIn())
+                    {
+                        break;
+                    }
+                    while (passenger.getIsLoggedIn() && passenger.getIsHomePageButtonClicked())
+                    {
+                        passenger = DisplaySvc::displayAllFlightDetails(passenger);
+                        if (!passenger.getIsLoggedIn())
+                        {
+                            break;
+                        }
+                    }
+                }
+                if (!passenger.getIsLoggedIn())
+                {
+                    isLoggedIn = passenger.getIsLoggedIn();
+                }
+            }
+        }
+        else
+        {
+            cout << "Wrong input" << endl;
+        }
+    }
 
     // srand(time(0));
     // for (int i = 0; i < 100; i++)

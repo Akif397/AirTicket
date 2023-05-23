@@ -1,44 +1,52 @@
 #include <iostream>
 #include "Ticket.h"
+#include "Flight.h"
+#include "Passenger.h"
+#include "..\service\FileReadWriteSvc.h"
 
 using namespace std;
 
-// string Passenger::getEmail(){
-//     return this->email;
-// }
+int Ticket::getId(){
+    return this->id;
+}
 
-// string Passenger::getName(){
-//     return this->name;
-// }
+Passenger Ticket::getPassenger(){
+    return this->passenger;
+}
 
-// string Passenger::getPassword(){
-//     return this->password;
-// }
+Flight Ticket::getFlight(){
+    return this->flight;
+}
 
-// bool Passenger::getIsLoggedIn(){
-//     return this->isLoggedIn;
-// }
+string Ticket::getStatus(){
+    return this->status;
+}
 
-// bool Passenger::getIsHomePageButtonClicked(){
-//     return this->isHomePageButtonClicked;
-// }
+int Ticket::getSeatNumber(){
+    return this->seatNumber;
+}
 
-// void Passenger::setName(string name){
-//     this->name = name;
-// }
+void Ticket::setId(){
+    int totalTicketNumber = FileReadWriteSvc::getLineNo("Ticket.txt");
+    this->id = totalTicketNumber + 1;
+}
 
-// void Passenger::setEmail(string email){
-//     this->email = email;
-// }
+void Ticket::setId(int id){
+    this->id = id;
+}
 
-// void Passenger::setPassword(string password){
-//     this->password = password;
-// }
+void Ticket::setPassenger(Passenger passenger){
+    this->passenger = passenger;
+}
 
-// void Passenger::setIsLoggedIn(bool isLoggedIn){
-//     this->isLoggedIn = isLoggedIn;
-// }
+void Ticket::setFlight(Flight flight){
+    this->flight = flight;
+}
 
-// void Passenger::setIsHomePageButtonClicked(bool isHomePageButtonClicked){
-//     this->isHomePageButtonClicked = isHomePageButtonClicked;
-// }
+void Ticket::setStatus(string status){
+    this->status = status;
+}
+
+void Ticket::setSeatNumber(int seatNumber){
+    this->seatNumber = seatNumber;
+}

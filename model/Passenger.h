@@ -11,8 +11,8 @@ private:
     string name;
     string email;
     string password;
-    bool isLoggedIn;
-    bool isHomePageButtonClicked;
+    bool isLoggedIn = false;
+    bool isHomePageButtonClicked = false;
 
 public:
     void setName(string name);
