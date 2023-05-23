@@ -16,9 +16,11 @@ private:
 public:
     static void writePassengerInformation(Passenger passenger);
     static void writeFlightInformation();
+    static Passenger readPassengerInformation(int passengerNo);
     static Flight readFlightInformation(int flightNo);
     static Ticket readTicketInformation(int tktNo);
     static void updateFlightTotalSeat(Flight flight, int seat);
+    static void updateTicketInformation(Ticket ticket);
     static Passenger matchPassengerInformation(Passenger p);
     static Passenger matchPassengerInformation(string email);
     static int getLineNo(string fileName);

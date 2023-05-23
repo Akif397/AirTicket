@@ -74,21 +74,11 @@ public:
 
 int main()
 {
-    FileReadWriteSvc::writeFlightInformation();
-    // cout << FileReadWriteSvc::getLineNo("Ticket.txt");
-    // DisplaySvc::displayFlightDetails();
-
-    // FileReadWriteSvc::getLineNo("Flight.txt");
-
-    // Admin admin;
-
-    // Airbus air;
-
-    // writeAirBusDetailsToFile(air);
-    // cout << "Hello world";
-
-    // Air a("Biman");
-    // a.print();
+    int flightNumber = FileReadWriteSvc::getLineNo("Flight.txt");
+    if (flightNumber == 0)
+    {
+        FileReadWriteSvc::writeFlightInformation();
+    }
 
     DisplaySvc::displayHomepage();
 
@@ -101,9 +91,9 @@ int main()
 
         cin >> homePageInput;
         cout << endl;
-        if (homePageInput == 1 || homePageInput == 2)
+        Passenger passenger;
+        if (homePageInput == 1)
         {
-            Passenger passenger;
             while (!isLoggedIn)
             {
                 passenger = DisplaySvc::displayLoginpage();
@@ -136,6 +126,42 @@ int main()
                 {
                     isLoggedIn = passenger.getIsLoggedIn();
                 }
+            }
+        }
+        else if (homePageInput == 2)
+        {
+            while (!isLoggedIn)
+            {
+                passenger = DisplaySvc::displayLoginpage();
+
+                if (passenger.getIsHomePageButtonClicked())
+                {
+                    break;
+                }
+                else if (!passenger.getIsLoggedIn())
+                {
+                    cout << "Credential does not match" << endl;
+                }
+                else if (passenger.getIsLoggedIn())
+                {
+                    passenger = DisplaySvc::displayAllTicketDetails(passenger);
+                    if (!passenger.getIsLoggedIn())
+                    {
+                        break;
+                    }
+                    while (passenger.getIsLoggedIn())
+                    {
+                        passenger = DisplaySvc::displayAllTicketDetails(passenger);
+                        if (!passenger.getIsLoggedIn())
+                        {
+                            break;
+                        }
+                    }
+                }
+                // if (!passenger.getIsLoggedIn())
+                // {
+                //     isLoggedIn = passenger.getIsLoggedIn();
+                // }
             }
         }
         else

@@ -13,6 +13,39 @@ void DisplaySvc::displayHomepage()
     cout << "Press -> 2 <- to Cancel Ticket." << endl;
 }
 
+Passenger DisplaySvc::displayAllTicketDetails(Passenger passenger)
+{
+    int totalTkt = FileReadWriteSvc::getLineNo("Ticket.txt"), input;
+    string data = "";
+    Ticket ticket;
+    cout << "## Cancel Ticket Page ##" << endl;
+
+    for (int i = 0; i < totalTkt; i++)
+    {
+        ticket = FileReadWriteSvc::readTicketInformation(i);
+        if (ticket.getPassenger().getEmail() == passenger.getEmail() && ticket.getStatus() == "Confirmed")
+        {
+            data += "Departure: " + ticket.getFlight().getDeparture() + ", Destination: " + ticket.getFlight().getDestination() + ", Time: " + ticket.getFlight().getDeptTime() + + ", Ticket purchased: " + to_string(ticket.getSeatNumber()) + "\n";
+            data += "Press -> " + to_string(ticket.getId()) + " <- to cancel the ticket\n\n";
+        }
+    }
+    cout << data;
+    cout << "Press -> 0 <- to Logout." << endl;
+    cin >> input;
+    cout << endl;
+    if (input == 0)
+    {
+        passenger.setIsLoggedIn(false);
+    }
+    else
+    {
+        FileReadWriteSvc::updateFlightTotalSeat(ticket.getFlight(), ticket.getSeatNumber());
+        FileReadWriteSvc::updateTicketInformation(ticket);
+    }
+
+    return passenger;
+}
+
 Passenger DisplaySvc::displayAllFlightDetails(Passenger passenger)
 {
     int totalFlights = FileReadWriteSvc::getLineNo("Flight.txt");
@@ -80,10 +113,10 @@ Ticket DisplaySvc::buyTicket(Flight flight, Passenger passenger, int seat)
     ticket.setId();
     ticket.setFlight(flight);
     ticket.setPassenger(passenger);
-    ticket.setStatus("Bought");
+    ticket.setStatus("Confirmed");
     ticket.setSeatNumber(seat);
     FileReadWriteSvc::writeTicketInformation(ticket);
-    FileReadWriteSvc::updateFlightTotalSeat(flight, seat);
+    FileReadWriteSvc::updateFlightTotalSeat(flight, -seat);
     return ticket;
 }
 
@@ -120,6 +153,7 @@ Passenger DisplaySvc::displayLoginpage()
     else if (input == 2)
     {
         passenger = displayRegisterpage();
+        passenger.setIsLoggedIn(true);
         passenger.setIsHomePageButtonClicked(false);
     }
     else if (input == 0)

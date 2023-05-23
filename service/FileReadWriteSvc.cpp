@@ -11,9 +11,22 @@ using namespace std;
 
 void FileReadWriteSvc::writePassengerInformation(Passenger passenger)
 {
+    string data = "", fileName = "Passenger.txt";
+    int totalLines = FileReadWriteSvc::getLineNo(fileName);
+    ifstream readFile(fileName);
+    Passenger oldPassenger;
+    for (int i = 0; i < totalLines; i++)
+    {
+        oldPassenger = FileReadWriteSvc::readPassengerInformation(i);
+        data += oldPassenger.getEmail() + " " + oldPassenger.getName() + " " + oldPassenger.getPassword() + "\n";
+    }
+
+    readFile.close();
+
     ofstream myfile;
-    myfile.open("Passenger.txt");
-    myfile << passenger.getEmail() + " " + passenger.getName() + " " + passenger.getPassword() + "\n";
+    myfile.open(fileName);
+    data += passenger.getEmail() + " " + passenger.getName() + " " + passenger.getPassword() + "\n";
+    myfile << data;
     myfile.close();
 }
 
@@ -167,6 +180,59 @@ Passenger FileReadWriteSvc::matchPassengerInformation(string email)
     return p;
 }
 
+Passenger FileReadWriteSvc::readPassengerInformation(int passengerNo)
+{
+    Passenger passenger;
+    string myText;
+    int count = 0;
+    ifstream MyReadFile("Passenger.txt");
+    while (getline(MyReadFile, myText))
+    {
+        if (count == passengerNo)
+        {
+            int currIndex = 0, i = 0, counter = 0;
+            int startIndex = 0, endIndex = 0;
+            while (i <= len(myText))
+            {
+                if (myText[i] == ' ' || i == len(myText))
+                {
+                    endIndex = i;
+                    string subStr = "";
+                    subStr.append(myText, startIndex, endIndex - startIndex);
+                    if (counter == 0)
+                    {
+                        passenger.setEmail(subStr);
+                    }
+                    else if (counter == 1)
+                    {
+                        passenger.setName(subStr);
+                    }
+                    else if (counter == 2)
+                    {
+                        passenger.setName(passenger.getName() + " " + subStr);
+                    }
+                    else if (counter == 3)
+                    {
+                        if (subStr == passenger.getPassword())
+                        {
+                            passenger.setPassword(subStr);
+                        }
+                        break;
+                    }
+                    currIndex += 1;
+                    startIndex = endIndex + 1;
+                    counter++;
+                }
+                i++;
+            }
+            break;
+        }
+        count++;
+    }
+    MyReadFile.close();
+    return passenger;
+}
+
 Ticket FileReadWriteSvc::readTicketInformation(int tktNo)
 {
     Ticket tkt;
@@ -314,11 +380,12 @@ void FileReadWriteSvc::writeTicketInformation(Ticket ticket)
     string data = "", fileName = "Ticket.txt";
     int totalLines = FileReadWriteSvc::getLineNo(fileName);
     ifstream readFile(fileName);
-    for(int i = 0; i < totalLines; i++){
+    for (int i = 0; i < totalLines; i++)
+    {
         Ticket tkt = FileReadWriteSvc::readTicketInformation(i);
         data += to_string(tkt.getId()) + " " + tkt.getPassenger().getEmail() + " " + to_string(tkt.getFlight().getId()) + " " + to_string(tkt.getSeatNumber()) + " " + tkt.getStatus() + "\n";
     }
-    
+
     readFile.close();
 
     ofstream myfile;
@@ -338,7 +405,7 @@ void FileReadWriteSvc::updateFlightTotalSeat(Flight flight, int seat)
         if (i == flight.getId() - 1)
         {
             oldFlight = FileReadWriteSvc::readFlightInformation(i);
-            oldFlight.setTotalSeat(oldFlight.getTotalSeat() - seat);
+            oldFlight.setTotalSeat(oldFlight.getTotalSeat() + seat);
         }
         else
         {
@@ -349,6 +416,27 @@ void FileReadWriteSvc::updateFlightTotalSeat(Flight flight, int seat)
     }
     ofstream myfile;
     myfile.open("Flight.txt");
+    myfile << data;
+    myfile.close();
+}
+
+void FileReadWriteSvc::updateTicketInformation(Ticket ticket)
+{
+    int totalFlights = FileReadWriteSvc::getLineNo("Ticket.txt");
+    string data = "";
+    Ticket oldTicket;
+    for (int i = 0; i < totalFlights; i++)
+    {
+        oldTicket = FileReadWriteSvc::readTicketInformation(i);
+        if (i == ticket.getId() - 1)
+        {
+            oldTicket.setStatus("Cancelled");
+        }
+
+        data += to_string(oldTicket.getId()) + " " + oldTicket.getPassenger().getEmail() + " " + to_string(oldTicket.getFlight().getId()) + " " + to_string(oldTicket.getSeatNumber()) + " " + oldTicket.getStatus() + "\n";
+    }
+    ofstream myfile;
+    myfile.open("Ticket.txt");
     myfile << data;
     myfile.close();
 }
