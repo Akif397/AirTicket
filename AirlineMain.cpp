@@ -1,65 +1,9 @@
 #include <iostream>
-#include <ctime>
-#include <cstdlib>
 #include <string>
-#include <fstream>
-#include "Air.h"
 #include "service\DisplaySvc.h"
 #include "service\FileReadWriteSvc.h"
 
 using namespace std;
-
-class EconAirBus
-{
-private:
-    int totalSeat;
-    double ticketPrice;
-};
-
-class BusinessAirBus
-{
-private:
-    int totalSeat;
-    double ticketPrice;
-};
-
-class Airbus
-{
-private:
-    const string name = "Turkish Airlines";
-    string abID;
-    string dest;
-    string dept;
-    string deptTime;
-    EconAirBus economy;
-    BusinessAirBus business;
-
-public:
-    Airbus()
-    {
-    }
-
-    string getAbId()
-    {
-        return this->abID;
-    }
-
-    void setAbId()
-    {
-        this->abID = "TK" + to_string(rand());
-    }
-};
-
-void writeAirBusDetailsToFile(Airbus airbus)
-{
-    ofstream myfile;
-    myfile.open("flight_details.txt");
-    myfile << "#############\n";
-    myfile << airbus.getAbId() + "\n";
-    myfile.close();
-}
-
-class Admin
 {
 private:
     int id;
