@@ -1,20 +1,12 @@
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 #include <string>
+#include <fstream>
 #include "service\DisplaySvc.h"
 #include "service\FileReadWriteSvc.h"
 
 using namespace std;
-{
-private:
-    int id;
-    string name;
-
-public:
-    Admin()
-    {
-        cout << "Admin created." << endl;
-    }
-};
 
 int main()
 {
@@ -23,8 +15,6 @@ int main()
     {
         FileReadWriteSvc::writeFlightInformation();
     }
-
-    DisplaySvc::displayHomepage();
 
     bool exit = false;
     while (exit == false)

@@ -27,14 +27,6 @@ int Flight::getTotalSeat(){
     return this->totalSeat;
 }
 
-int Flight::getEconSeat(){
-    return this->econSeat;
-}
-
-int Flight::getBusinessSeat(){
-    return this->businessSeat;
-}
-
 void Flight::setId(int id){
     this->id = id;
 }
@@ -57,12 +49,4 @@ void Flight::setdeptTime(string deptTime){
 
 void Flight::setTotalSeat(int totalSeat){
     this->totalSeat = totalSeat;
-}
-
-void Flight::setEconSeat(int econSeat){
-    this->econSeat = econSeat;
-}
-
-void Flight::setBusinessSeat(int businessSeat){
-    this->businessSeat = businessSeat;
 }

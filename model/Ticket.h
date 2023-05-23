@@ -15,8 +15,6 @@ private:
     Flight flight;
     int seatNumber;
     string status;
-    
-
 public:
     void setId();
     void setId(int id);

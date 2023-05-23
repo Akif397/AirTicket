@@ -14,7 +14,6 @@ private:
     string destination;
     string deptTime;
     int totalSeat;
-
 public:
     void setId(int id);
     void setName(string name);
@@ -22,7 +21,6 @@ public:
     void setDestination(string destination);
     void setdeptTime(string deptTime);
     void setTotalSeat(int totalSeat);
-
     int getId();
     string getName();
     string getDeparture();
