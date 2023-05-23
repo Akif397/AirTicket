@@ -14,8 +14,6 @@ private:
     string destination;
     string deptTime;
     int totalSeat;
-    int econSeat;
-    int businessSeat;
 
 public:
     void setId(int id);
@@ -24,8 +22,6 @@ public:
     void setDestination(string destination);
     void setdeptTime(string deptTime);
     void setTotalSeat(int totalSeat);
-    void setEconSeat(int econSeat);
-    void setBusinessSeat(int businessSeat);
 
     int getId();
     string getName();
@@ -33,8 +29,6 @@ public:
     string getDestination();
     string getDeptTime();
     int getTotalSeat();
-    int getEconSeat();
-    int getBusinessSeat();
 };
 
 #endif

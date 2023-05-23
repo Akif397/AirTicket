@@ -54,10 +54,8 @@ void FileReadWriteSvc::writeFlightInformation()
         flight.setDestination(airports[99 - i]);
         flight.setdeptTime(time);
         flight.setTotalSeat(100 + (rand() % 100));
-        flight.setBusinessSeat(1 + (rand() % 30));
-        flight.setEconSeat(flight.getTotalSeat() - flight.getBusinessSeat());
 
-        data += to_string(flight.getId()) + " " + flight.getName() + " " + flight.getDeparture() + " " + flight.getDestination() + " " + flight.getDeptTime() + " " + to_string(flight.getTotalSeat()) + " " + to_string(flight.getBusinessSeat()) + " " + to_string(flight.getEconSeat()) + "\n";
+        data += to_string(flight.getId()) + " " + flight.getName() + " " + flight.getDeparture() + " " + flight.getDestination() + " " + flight.getDeptTime() + " " + to_string(flight.getTotalSeat()) + " " + "\n";
     }
     myfile << data;
     myfile.close();
@@ -329,14 +327,6 @@ Flight FileReadWriteSvc::readFlightInformation(int flightNo)
                     {
                         flight.setTotalSeat(stoi(subStr));
                     }
-                    else if (counter == 6)
-                    {
-                        flight.setBusinessSeat(stoi(subStr));
-                    }
-                    else if (counter == 7)
-                    {
-                        flight.setEconSeat(stoi(subStr));
-                    }
                     currIndex += 1;
                     startIndex = endIndex + 1;
                     counter++;
@@ -412,7 +402,7 @@ void FileReadWriteSvc::updateFlightTotalSeat(Flight flight, int seat)
             oldFlight = FileReadWriteSvc::readFlightInformation(i);
         }
 
-        data += to_string(oldFlight.getId()) + " " + oldFlight.getName() + " " + oldFlight.getDeparture() + " " + oldFlight.getDestination() + " " + oldFlight.getDeptTime() + " " + to_string(oldFlight.getTotalSeat()) + " " + to_string(oldFlight.getBusinessSeat()) + " " + to_string(oldFlight.getEconSeat()) + "\n";
+        data += to_string(oldFlight.getId()) + " " + oldFlight.getName() + " " + oldFlight.getDeparture() + " " + oldFlight.getDestination() + " " + oldFlight.getDeptTime() + " " + to_string(oldFlight.getTotalSeat()) + " " + "\n";
     }
     ofstream myfile;
     myfile.open("Flight.txt");
