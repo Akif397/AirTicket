@@ -36,7 +36,7 @@ int main()
                 {
                     break;
                 }
-                else if (!passenger.getIsLoggedIn())
+                else if (!passenger.getIsLoggedIn()) 
                 {
                     cout << "Credential does not match" << endl;
                 }
